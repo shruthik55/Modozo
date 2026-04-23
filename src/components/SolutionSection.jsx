@@ -2,94 +2,45 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 /* ─────────────────────────────────────────────
-   CANVAS FLOW ANIMATION
+   CSS-BASED FLOW ANIMATION
    Draws continuously looping yellow particles
-   along a straight path: Left → Center → Right
+   along a straight path with strictly sequenced delays
 ───────────────────────────────────────────── */
 const FlowCanvas = () => {
-  const canvasRef = useRef(null);
-  const animRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Particle pool
-    const PARTICLE_COUNT = 14;
-    const particles = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
-      progress: i / PARTICLE_COUNT, // staggered start positions
-      speed: 0.0018 + Math.random() * 0.0008,
-      size: 3 + Math.random() * 2.5,
-      opacity: 0.7 + Math.random() * 0.3,
-    }));
-
-    const draw = () => {
-      const W = canvas.offsetWidth;
-      const H = canvas.offsetHeight;
-      ctx.clearRect(0, 0, W, H);
-
-      // Guide line (left node → right node)
-      const y = H / 2;
-      const xLeft  = W * 0.14;   // centre of Design card
-      const xRight = W * 0.86;   // centre of Production card
-
-      // Background track line
-      ctx.beginPath();
-      ctx.moveTo(xLeft, y);
-      ctx.lineTo(xRight, y);
-      ctx.strokeStyle = 'rgba(255,215,0,0.12)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Particles
-      particles.forEach(p => {
-        p.progress += p.speed;
-        if (p.progress > 1) p.progress -= 1;
-
-        const x = xLeft + (xRight - xLeft) * p.progress;
-
-        // Glow
-        const grd = ctx.createRadialGradient(x, y, 0, x, y, p.size * 3);
-        grd.addColorStop(0, `rgba(255, 215, 0, ${p.opacity})`);
-        grd.addColorStop(1, 'rgba(255, 215, 0, 0)');
-        ctx.beginPath();
-        ctx.arc(x, y, p.size * 3, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
-
-        // Core dot
-        ctx.beginPath();
-        ctx.arc(x, y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 215, 0, ${p.opacity})`;
-        ctx.fill();
-      });
-
-      animRef.current = requestAnimationFrame(draw);
-    };
-
-    animRef.current = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(animRef.current);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
+  const DOT_COUNT = 15;
+  const DURATION = 6; // seconds
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 1 }}
-    />
+    <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
+      <style>
+        {`
+          @keyframes flowLinear {
+            0% { left: 14%; opacity: 0; }
+            1.5% { opacity: 1; }
+            98.5% { opacity: 1; }
+            100% { left: 86%; opacity: 0; }
+          }
+        `}
+      </style>
+
+      {/* Guide line (left node → right node) */}
+      <div 
+        className="absolute top-1/2 -translate-y-1/2 h-[2px] bg-[#FFD700]/12"
+        style={{ left: '14%', right: '14%' }}
+      />
+
+      {/* Synchronized dots strictly driven by staggered delay */}
+      {Array.from({ length: DOT_COUNT }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-[6px] h-[6px] rounded-full bg-[#FFD700]"
+          style={{
+            animation: `flowLinear ${DURATION}s linear infinite`,
+            animationDelay: `-${(DURATION / DOT_COUNT) * i}s`
+          }}
+        />
+      ))}
+    </div>
   );
 };
 
@@ -119,24 +70,11 @@ const PlatformCard = () => (
     transition={{ duration: 0.8, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
     className="relative z-10 flex flex-col items-center"
   >
-    {/* Outer glow ring */}
-    <motion.div
-      className="absolute inset-0 rounded-2xl"
-      animate={{
-        boxShadow: [
-          '0 0 20px 4px rgba(255,215,0,0.25)',
-          '0 0 40px 12px rgba(255,215,0,0.45)',
-          '0 0 20px 4px rgba(255,215,0,0.25)',
-        ],
-      }}
-      transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-    />
-
     {/* Card body */}
     <motion.div
       animate={{ scale: [1, 1.03, 1] }}
       transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-      className="px-9 py-6 bg-[#FFD700] rounded-2xl text-black font-semibold text-xl shadow-[0_0_40px_rgba(255,215,0,0.5)] min-w-[170px] text-center"
+      className="px-9 py-6 bg-[#FFD700] rounded-2xl text-black font-semibold text-xl min-w-[170px] text-center"
     >
       Modozo Platform
     </motion.div>

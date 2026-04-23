@@ -15,7 +15,7 @@ const FinalCTA = () => {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-5xl lg:text-5xl font-bold mb-8 tracking-tight font-serif text-white mx-auto leading-tight relative lg:-translate-x-4 xl:-translate-x-6"
           >
-            Launch Collections Faster — <br className="hidden md:block" />
+            Launch Collections Faster <br className="hidden md:block" />
             With Less Chaos
           </motion.h2>
 

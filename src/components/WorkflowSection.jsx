@@ -251,13 +251,11 @@ const CubeFace = ({ stepIndex, activeStep, rotateY }) => {
 
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-center p-8 rounded-2xl backdrop-blur-xl border border-white/50 [backface-visibility:hidden] overflow-hidden"
+      className="absolute inset-0 flex flex-col items-center justify-center p-8 rounded-2xl [backface-visibility:hidden] overflow-hidden"
       style={{
         transform: `rotateY(${rotateY}deg)`,
-        background: '#FFD700',
-        boxShadow: isActive
-          ? '0 20px 60px rgba(255,215,0,0.45)'
-          : '0 15px 50px rgba(255,215,0,0.25)',
+        backgroundColor: '#FFD700',
+        opacity: 1,
       }}
     >
       <span className="text-[#000000] font-extrabold text-sm uppercase tracking-widest mb-2 block opacity-80 border-b-2 border-black/20 pb-1">

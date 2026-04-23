@@ -236,7 +236,7 @@ const featureData = [
   },
   {
     title: "Dynamic Collaboration",
-    desc: "Connect your entire ecosystem—designers, brand teams, and global vendors.",
+    desc: "Connect your entire ecosystem like designers, brand teams, and global vendors.",
     Animation: CollaborationAnimation
   },
   {
@@ -259,12 +259,13 @@ const FeatureCard = ({ item, index, isHovered, onHover, isAnyHovered }) => {
       }}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       className={`
-        relative group cursor-default p-10 rounded-[2.5rem] bg-white border-2 
+        w-full sm:w-[320px] min-h-[480px]
+        relative group cursor-default px-6 py-10 lg:px-8 rounded-[2.5rem] bg-white border-2 
         ${isHovered ? 'border-brand-yellow shadow-2xl z-20 brightness-105' : 'border-gray-100 shadow-sm z-10'}
-        flex flex-col items-center text-center max-w-sm h-full transition-shadow duration-500
+        flex flex-col items-center text-center transition-shadow duration-500
       `}
     >
-      <div className="w-full h-40 mb-10 overflow-hidden flex items-center justify-center">
+      <div className="w-full h-36 mb-8 overflow-hidden flex items-center justify-center">
         <item.Animation active={isHovered} />
       </div>
       
@@ -291,7 +292,7 @@ const FeaturesSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <section className="relative py-16 md:py-32 px-4 sm:px-6 overflow-hidden bg-brand-beige">
+    <section className="relative py-16 md:py-32 px-0 sm:px-6 overflow-hidden bg-brand-beige">
       {/* Background Dimming Overlay */}
       <AnimatePresence>
         {hoveredIndex !== null && (
@@ -305,7 +306,7 @@ const FeaturesSection = () => {
       </AnimatePresence>
 
       <div className="max-w-[1600px] mx-auto relative z-10">
-        <div className="mb-12 md:mb-20 text-center px-2">
+        <div className="mb-12 md:mb-20 text-center px-4">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -325,8 +326,8 @@ const FeaturesSection = () => {
           </motion.p>
         </div>
 
-        {/* Feature Cards Container */}
-        <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-6 md:gap-12 perspective-1000 w-full px-2">
+        {/* Feature Cards Container - 3+2 Centered Responsive Layout */}
+        <div className="flex flex-wrap justify-center gap-8 max-w-[1100px] mx-auto px-6 py-10">
           {featureData.map((item, index) => (
             <FeatureCard
               key={index}

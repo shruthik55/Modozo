@@ -82,7 +82,6 @@ const Navbar = () => {
     { name: 'Workflow', href: '#workflow' },
     { name: 'Features', href: '#features' },
     { name: 'Impact', href: '#impact' },
-    { name: 'Contact', href: '#contact' },
   ];
 
 
@@ -219,7 +218,7 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.4, ease: "easeInOut" }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#333333] leading-relaxed font-medium max-w-md md:max-w-xl mx-auto lg:mx-0"
           >
-            From techpacks and approvals to vendors, samples, and production tracking — Modozo brings your entire fashion workflow into one connected system.
+            From techpacks and approvals to vendors, samples, and production tracking with Modozo brings your entire fashion workflow into one connected system.
           </motion.p>
 
           <motion.p

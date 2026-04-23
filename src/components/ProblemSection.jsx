@@ -214,7 +214,7 @@ const ProblemSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-black relative z-10 font-serif leading-tight pr-4"
           >
-            Everything Looks Fine — Until It Doesn’t
+            Everything Looks Fine Until It Doesn’t
           </motion.h2>
 
           <motion.p

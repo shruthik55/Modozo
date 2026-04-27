@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 /** 
- * MICRO-ANIMATIONS 
+ * ORIGINAL MICRO-ANIMATIONS (RECOVERED)
  */
 
 // 1. Unified Workflow: Elements align into a clean flow
@@ -12,12 +12,15 @@ const WorkflowAnimation = ({ active }) => (
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          initial={{ y: i % 2 === 0 ? -20 : 20, opacity: 0 }}
-          animate={active ? { y: 0, opacity: 1 } : { y: i % 2 === 0 ? -20 : 20, opacity: 0.3 }}
+          initial={{ y: i % 2 === 0 ? -10 : 10, opacity: 0.6, scale: 0.95 }}
+          animate={active 
+            ? { y: 0, opacity: 1, scale: 1.1 } 
+            : { y: i % 2 === 0 ? -10 : 10, opacity: 0.6, scale: 0.95 }
+          }
           transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-          className="w-12 h-12 bg-black/10 rounded-lg flex items-center justify-center border border-black/5"
+          className="w-10 h-10 md:w-12 md:h-12 bg-black/5 rounded-lg flex items-center justify-center border border-black/5 shadow-sm"
         >
-          <div className="w-6 h-6 rounded bg-brand-yellow/50" />
+          <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-brand-yellow/50" />
         </motion.div>
       ))}
     </div>
@@ -35,28 +38,29 @@ const WorkflowAnimation = ({ active }) => (
 // 2. Centralized Communication: Messages converge into one point
 const CommunicationAnimation = ({ active }) => (
   <div className="relative w-full h-32 flex items-center justify-center overflow-hidden">
-    {/* Central Hub */}
     <motion.div
       animate={active ? { 
         scale: [1, 1.15, 1],
         boxShadow: [
-          "0 0 20px rgba(255,215,0,0.3)",
-          "0 0 40px rgba(255,215,0,0.6)", 
-          "0 0 20px rgba(255,215,0,0.3)"
+          "0 0 20px rgba(255,215,0,0.4)",
+          "0 0 40px rgba(255,215,0,0.7)", 
+          "0 0 20px rgba(255,215,0,0.4)"
         ]
-      } : {}}
-      transition={{ duration: 2, repeat: Infinity }}
-      className="w-12 h-12 bg-brand-yellow rounded-full z-10 flex items-center justify-center border-4 border-white shadow-xl"
+      } : { 
+        scale: 1,
+        boxShadow: "0 0 10px rgba(255,215,0,0.2)"
+      }}
+      transition={{ duration: active ? 2 : 4, repeat: Infinity }}
+      className="w-10 h-10 md:w-12 md:h-12 bg-brand-yellow rounded-full z-10 flex items-center justify-center border-4 border-white shadow-xl"
     >
       <div className="w-2 h-2 bg-black/40 rounded-full" />
     </motion.div>
 
-    {/* Messages */}
     {[
-      { x: -100, delay: 0 },
-      { x: 100, delay: 0.8 },
-      { x: -100, y: -30, delay: 1.6 },
-      { x: 100, y: 30, delay: 2.4 }
+      { x: -80, delay: 0 },
+      { x: 80, delay: 0.8 },
+      { x: -80, y: -25, delay: 1.6 },
+      { x: 80, y: 25, delay: 2.4 }
     ].map((m, i) => (
       <motion.div
         key={i}
@@ -65,22 +69,27 @@ const CommunicationAnimation = ({ active }) => (
           ? { 
               x: [m.x, 0], 
               y: [m.y || 0, 0],
-              opacity: [0, 1, 1, 0],
-              scale: [0.8, 1, 1, 0.2]
+              opacity: [0.3, 1, 1, 0.3],
+              scale: [0.9, 1, 1, 0.9]
             } 
-          : { opacity: 0 }
+          : { 
+              opacity: [0.1, 0.3, 0.1],
+              x: m.x * 0.7, 
+              y: (m.y || 0) * 0.7,
+              scale: 0.8
+            }
         }
         transition={{ 
-          duration: 2.5, 
+          duration: active ? 2.5 : 5, 
           repeat: Infinity, 
           delay: m.delay,
           ease: "easeInOut",
           times: [0, 0.4, 0.8, 1]
         }}
-        className="absolute px-3 py-1 bg-white border border-gray-100 rounded-full shadow-md z-0 flex items-center gap-1"
+        className="absolute px-2 md:px-3 py-1 bg-white border border-gray-100 rounded-full shadow-md z-0 flex items-center gap-1"
       >
-        <div className="w-2 h-2 bg-brand-yellow rounded-full" />
-        <div className="w-6 h-1 bg-gray-200 rounded-full" />
+        <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-brand-yellow rounded-full" />
+        <div className="w-4 h-1 md:w-6 md:h-1 bg-gray-200 rounded-full" />
       </motion.div>
     ))}
   </div>
@@ -88,24 +97,24 @@ const CommunicationAnimation = ({ active }) => (
 
 // 3. Real-time Visibility: Dashboard elements update
 const VisibilityAnimation = ({ active }) => (
-  <div className="w-full h-32 flex flex-col justify-center gap-2 px-8">
-    {[70, 40, 90].map((w, i) => (
-      <div key={i} className="h-3 bg-black/10 rounded-full overflow-hidden w-full">
+  <div className="w-full h-32 flex flex-col justify-center gap-2 px-10 md:px-14">
+    {[70, 45, 90].map((w, i) => (
+      <div key={i} className="h-2.5 md:h-3 bg-black/5 rounded-full overflow-hidden w-full">
         <motion.div
           initial={{ width: "20%" }}
-          animate={active ? { width: `${w}%` } : { width: "20%" }}
-          transition={{ duration: 1, delay: i * 0.1, ease: "easeInOut" }}
+          animate={active ? { width: `${w}%` } : { width: "30%" }}
+          transition={{ duration: active ? 1 : 2, delay: i * 0.1, ease: "easeInOut" }}
           className="h-full bg-brand-yellow"
         />
       </div>
     ))}
     <div className="flex gap-2 mt-1">
-      {[0, 1, 2, 3].map(i => (
+      {[0, 1, 2].map(i => (
         <motion.div
           key={i}
           animate={active ? { opacity: [0.3, 1, 0.3] } : { opacity: 0.3 }}
-          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-          className="w-2 h-2 rounded-full bg-green-500"
+          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.4 }}
+          className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500"
         />
       ))}
     </div>
@@ -114,51 +123,36 @@ const VisibilityAnimation = ({ active }) => (
 
 // 4. Dynamic Collaboration: Hub-based collaboration network
 const CollaborationAnimation = ({ active }) => {
-  const centerNode = { x: 0, y: 0 };
   const outerNodes = [
-    { x: -55, y: -35 },
-    { x: 55, y: -35 },
-    { x: 55, y: 35 },
-    { x: -55, y: 35 },
+    { x: -50, y: -30 }, { x: 50, y: -30 },
+    { x: 50, y: 30 }, { x: -50, y: 30 },
   ];
 
   return (
-    <div className="relative w-full h-40 flex items-center justify-center overflow-visible">
+    <div className="relative w-full h-32 flex items-center justify-center overflow-visible">
       <div className="relative">
-        {/* Connection Lines (Center to Outers) */}
         <svg className="absolute inset-x-[-100px] inset-y-[-100px] w-[200px] h-[200px] pointer-events-none">
           <g transform="translate(100, 100)">
             {outerNodes.map((node, i) => (
               <React.Fragment key={i}>
                 <motion.line
-                  x1={centerNode.x}
-                  y1={centerNode.y}
-                  x2={node.x}
-                  y2={node.y}
+                  x1={0} y1={0} x2={node.x} y2={node.y}
                   stroke="#FFD700"
-                  strokeWidth="1"
-                  strokeOpacity="0.3"
-                  initial={{ pathLength: 0 }}
-                  animate={active ? { pathLength: 1 } : { pathLength: 0 }}
-                  transition={{ duration: 1, delay: i * 0.2 }}
+                  strokeWidth="1.5"
+                  strokeOpacity={active ? 0.5 : 0.2}
+                  initial={{ pathLength: 0.3 }}
+                  animate={active ? { pathLength: 1 } : { pathLength: 0.3 }}
+                  transition={{ duration: 1 }}
                 />
-                
-                {/* Data Pulses: Node -> Center -> Node */}
                 {active && (
                   <motion.circle
-                    r="2.5"
-                    fill="#FFD700"
+                    r="2" fill="#FFD700"
                     animate={{
-                      cx: [node.x, centerNode.x, outerNodes[(i + 1) % 4].x],
-                      cy: [node.y, centerNode.y, outerNodes[(i + 1) % 4].y],
+                      cx: [node.x, 0, outerNodes[(i + 1) % 4].x],
+                      cy: [node.y, 0, outerNodes[(i + 1) % 4].y],
                       opacity: [0, 1, 1, 0]
                     }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: i * 0.7,
-                      ease: "easeInOut"
-                    }}
+                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
                   />
                 )}
               </React.Fragment>
@@ -166,31 +160,23 @@ const CollaborationAnimation = ({ active }) => {
           </g>
         </svg>
 
-        {/* Central Hub Node */}
         <motion.div
           animate={active ? { 
             scale: [1, 1.1, 1],
-            boxShadow: ["0 0 0px #FFD700", "0 0 15px #FFD700", "0 0 0px #FFD700"]
-          } : {}}
+            boxShadow: ["0 0 5px #FFD700", "0 0 15px #FFD700", "0 0 5px #FFD700"]
+          } : { scale: 0.9 }}
           transition={{ duration: 2, repeat: Infinity }}
           className="absolute -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-brand-yellow rounded-full z-20 border-2 border-white flex items-center justify-center shadow-lg"
         >
           <div className="w-1.5 h-1.5 bg-black/30 rounded-full" />
         </motion.div>
 
-        {/* Surrounding Nodes */}
         {outerNodes.map((pos, i) => (
           <motion.div
             key={i}
-            animate={active ? { 
-              scale: [1, 1.2, 1],
-            } : {}}
-            transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
             className="absolute -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full z-10 border-2 border-brand-yellow flex items-center justify-center shadow-sm"
             style={{ left: pos.x, top: pos.y }}
-          >
-            <div className="w-1 h-1 bg-black/10 rounded-full" />
-          </motion.div>
+          />
         ))}
       </div>
     </div>
@@ -202,9 +188,9 @@ const ControlAnimation = ({ active }) => (
   <div className="w-full h-32 flex items-center justify-center px-10">
     <div className="w-full h-1 relative bg-black/5 rounded-full overflow-hidden">
       <motion.div
-        animate={active ? { x: ["-100%", "100%"] } : { x: "-100%" }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        className="absolute h-full w-1/2 bg-gradient-to-r from-transparent via-brand-yellow to-transparent"
+        animate={{ x: ["-100%", "100%"] }}
+        transition={{ duration: active ? 1.5 : 3, repeat: Infinity, ease: "linear" }}
+        className="absolute h-full w-1/2 bg-gradient-to-r from-transparent via-brand-yellow/80 to-transparent"
       />
       {active && [0,1,2].map(i => (
         <motion.div
@@ -225,18 +211,18 @@ const featureData = [
     Animation: WorkflowAnimation
   },
   {
-    title: "Centralized Communication",
-    desc: "Eliminate email chains. Every update, approval, and file in one single thread.",
+    title: "Communication",
+    desc: "Eliminate email chains. Every update and file in a single thread.",
     Animation: CommunicationAnimation
   },
   {
     title: "Real-time Visibility",
-    desc: "Instant live updates on sourcing, sampling, and manufacturing statuses.",
+    desc: "Instant live updates on status changes across your supply chain.",
     Animation: VisibilityAnimation
   },
   {
     title: "Dynamic Collaboration",
-    desc: "Connect your entire ecosystem like designers, brand teams, and global vendors.",
+    desc: "Connect your entire design team and global vendor ecosystem.",
     Animation: CollaborationAnimation
   },
   {
@@ -246,97 +232,78 @@ const featureData = [
   }
 ];
 
-const FeatureCard = ({ item, index, isHovered, onHover, isAnyHovered }) => {
+const FeatureStrip = ({ feature, index }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isEven = index % 2 === 0;
+
   return (
-    <motion.div
-      onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}
-      animate={{
-        scale: isHovered ? 1.05 : 1,
-        z: isHovered ? 50 : 0,
-        opacity: isAnyHovered && !isHovered ? 0.4 : 1,
-        filter: isAnyHovered && !isHovered ? "blur(2px)" : "blur(0px)",
-      }}
-      transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
+    <motion.div 
+      ref={ref}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0, y: 15 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
       className={`
-        w-full sm:w-[320px] min-h-[480px]
-        relative group cursor-default px-6 py-10 lg:px-8 rounded-[2.5rem] bg-white border-2 
-        ${isHovered ? 'border-brand-yellow shadow-2xl z-20 brightness-105' : 'border-gray-100 shadow-sm z-10'}
-        flex flex-col items-center text-center transition-shadow duration-500
+        flex items-center w-full px-6 md:px-10 h-[90px] md:h-[105px]
+        bg-white rounded-[20px] shadow-[0_4px_16px_rgba(0,0,0,0.05)]
+        group cursor-default transition-all duration-400 border border-transparent
+        ${isHovered ? 'shadow-[0_12px_24px_rgba(0,0,0,0.08)] border-brand-yellow/30' : ''}
+        ${isEven ? 'flex-row' : 'flex-row-reverse'}
       `}
     >
-      <div className="w-full h-36 mb-8 overflow-hidden flex items-center justify-center">
-        <item.Animation active={isHovered} />
+      {/* 50% Text Section */}
+      <div className={`w-1/2 flex flex-col ${isEven ? 'items-start text-left' : 'items-end text-right'}`}>
+        <h3 className="text-[14px] md:text-[16px] font-bold text-brand-dark tracking-tight leading-tight mb-1">
+          {feature.title}
+        </h3>
+        <p className="text-[11px] md:text-[12px] text-gray-400 font-medium leading-tight max-w-[280px]">
+          {feature.desc}
+        </p>
       </div>
-      
-      <h3 className="text-2xl font-bold mb-4 text-brand-dark tracking-tight">
-        {item.title}
-      </h3>
-      
-      <p className="text-gray-500 font-light leading-relaxed">
-        {item.desc}
-      </p>
 
-      {/* Decorative arrow that appears on hover */}
-      <motion.div
-        animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
-        className="mt-6 text-brand-yellow text-2xl font-bold"
-      >
-        →
-      </motion.div>
+      {/* 50% Animation Section */}
+      <div className="w-1/2 flex items-center justify-center">
+        <motion.div
+          animate={{ 
+            opacity: isHovered ? 1 : 0.5,
+            scale: isHovered ? 1.1 : 1
+          }}
+          transition={{ duration: 0.4 }}
+          className="w-full flex items-center justify-center overflow-visible"
+        >
+          <feature.Animation active={isHovered} />
+        </motion.div>
+      </div>
     </motion.div>
   );
 };
 
 const FeaturesSection = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
   return (
-    <section className="relative py-16 md:py-32 px-0 sm:px-6 overflow-hidden bg-brand-beige">
-      {/* Background Dimming Overlay */}
-      <AnimatePresence>
-        {hoveredIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-brand-dark/5 backdrop-blur-[2px] z-0 pointer-events-none"
-          />
-        )}
-      </AnimatePresence>
-
-      <div className="max-w-[1600px] mx-auto relative z-10">
-        <div className="mb-12 md:mb-20 text-center px-4">
+    <section className="relative py-16 md:py-24 bg-brand-beige overflow-hidden">
+      <div className="max-w-[1000px] mx-auto px-6">
+        {/* Section Header */}
+        <div className="mb-8 md:mb-12 text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-8 tracking-tighter font-serif leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 tracking-tighter font-serif"
           >
             What Makes This Powerful
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg md:text-xl lg:text-2xl text-gray-500 max-w-3xl mx-auto font-light"
-          >
-            Premium features designed for the next generation of fashion brands.
-          </motion.p>
+          <p className="text-sm md:text-base text-gray-500 font-medium max-w-xl mx-auto">
+            Experience the original micro-animations integrated into our new streamlined zig-zag layout.
+          </p>
         </div>
 
-        {/* Feature Cards Container - 3+2 Centered Responsive Layout */}
-        <div className="flex flex-wrap justify-center gap-8 max-w-[1100px] mx-auto px-6 py-10">
-          {featureData.map((item, index) => (
-            <FeatureCard
-              key={index}
-              item={item}
-              index={index}
-              isHovered={hoveredIndex === index}
-              onHover={setHoveredIndex}
-              isAnyHovered={hoveredIndex !== null}
-            />
+        {/* Feature Strips List */}
+        <div className="flex flex-col gap-4 md:gap-5 max-w-4xl mx-auto">
+          {featureData.map((feature, index) => (
+            <FeatureStrip key={index} feature={feature} index={index} />
           ))}
         </div>
       </div>

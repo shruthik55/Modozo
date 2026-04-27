@@ -209,7 +209,7 @@ const FashionWorkflowsSection = () => {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <span className="text-brand-yellow font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Tailored for Industry</span>
+          <span className="text-gray-500 font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Tailored for Industry</span>
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-8 tracking-tight text-black font-serif leading-tight">
             Built Specifically for Fashion Workflows
           </h2>
@@ -244,7 +244,7 @@ const FashionWorkflowsSection = () => {
               
               <div className="flex flex-wrap gap-2">
                 {["Tech Packs", "Pattern Audits", "Sampling Tracking"].map(tag => (
-                  <span key={tag} className="px-3 py-1 bg-brand-yellow/10 text-brand-yellow text-[10px] font-bold uppercase rounded-full tracking-widest">{tag}</span>
+                  <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase rounded-full tracking-widest">{tag}</span>
                 ))}
               </div>
             </div>
@@ -275,7 +275,7 @@ const FashionWorkflowsSection = () => {
 
               <div className="flex flex-wrap gap-2">
                 {["PO Management", "Live Progress", "Quality Compliance"].map(tag => (
-                  <span key={tag} className="px-3 py-1 bg-brand-yellow/10 text-brand-yellow text-[10px] font-bold uppercase rounded-full tracking-widest">{tag}</span>
+                  <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase rounded-full tracking-widest">{tag}</span>
                 ))}
               </div>
             </div>

@@ -286,18 +286,15 @@ const FeaturesSection = () => {
     <section className="relative py-16 md:py-24 bg-brand-bg-blue overflow-hidden">
       <div className="max-w-[1000px] mx-auto px-6">
         {/* Section Header */}
-        <div className="mb-8 md:mb-12 text-center">
+        <div className="mb-6 md:mb-8 text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 tracking-tighter font-serif"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter font-serif"
           >
             What Makes This Powerful
           </motion.h2>
-          <p className="text-sm md:text-base text-gray-500 font-medium max-w-xl mx-auto">
-            Experience the original micro-animations integrated into our new streamlined zig-zag layout.
-          </p>
         </div>
 
         {/* Feature Strips List */}

@@ -212,7 +212,7 @@ const WorkflowCard = ({ index, x, rotation, scale, isActive }) => {
 
   return (
     <motion.div
-      style={{ x, rotateZ: rotation, scale }}
+      style={{ x, scale, zIndex: 50 - index }}
       className="absolute flex flex-col items-center justify-start py-8 px-6 rounded-[2.5rem] bg-white border-2 border-gray-100 shadow-2xl w-[220px] md:w-[260px] h-[400px] md:h-[460px] shrink-0"
     >
       <div className="relative z-10 flex flex-col items-center w-full">
@@ -298,24 +298,32 @@ const WorkflowSection = () => {
         <div className="relative w-full h-[500px] flex items-center justify-center mt-2 md:mt-4">
           {workflowSteps.map((_, i) => {
             // Cards are approx 220-260px wide. We ensure they fit in the viewport.
-            const baseWidth = windowWidth < 768 ? 200 : 260;
-            const baseGap = windowWidth < 768 ? 8 : 20;
+            // Calculate layout based on window width and specified gaps
+            const baseCardWidth = windowWidth < 768 ? 200 : 260;
+            const targetGap = windowWidth < 768 ? 16 : 24;
             
-            // Calculate maximum possible step size to fit exactly in screen padding (40px)
+            // maxStepSize ensures they fit within screen (40px padding)
             const maxTotalWidth = windowWidth - 40;
             const maxStepSize = maxTotalWidth / 6;
-            const finalStepSize = Math.min(baseWidth + baseGap, maxStepSize);
+            
+            // finalStepSize is the distance between card centers
+            const finalStepSize = Math.min(baseCardWidth + targetGap, maxStepSize);
+            
+            // If the cards are too wide to fit with the gap, we must scale them down
+            const availableWidthPerCard = finalStepSize - targetGap;
+            const sizeScaleFactor = Math.min(1, availableWidthPerCard / baseCardWidth);
             
             const targetX = (i - 2.5) * finalStepSize;
             
             // X position transformation (uses translateX via framer-motion 'x' prop)
             const x = useTransform(dispersion, [0, 1], [0, targetX]);
             
-            // Initial clustered "messiness" using index - synchronized with dispersion
-            const rotation = useTransform(dispersion, [0, 1], [(i - 2.5) * 8, 0]);
+            // No rotation - cards remain flat as per user request
+            const rotation = 0;
             
-            // Scale enhancement on spread for a premium feel
-            const scale = useTransform(dispersion, [0, 0.4, 1], [0.85, 0.95, 1]);
+            // Scale enhancement: blend the spread scale with the size constraint scale
+            const spreadScale = useTransform(dispersion, [0, 1], [0.85, 1]);
+            const scale = useTransform(spreadScale, (s) => s * sizeScaleFactor);
             
             // Activate cards once they are mostly spread
             const isActive = true;

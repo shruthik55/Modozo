@@ -17,8 +17,8 @@ const DesignSamplingAnimation = ({ active }) => {
   }, [active]);
 
   return (
-    <div className="relative w-full h-48 flex items-center justify-center overflow-hidden bg-brand-beige/50 rounded-2xl border border-brand-yellow/10">
-      <div className="relative z-10 scale-125">
+    <div className="relative w-full h-40 flex items-center justify-center overflow-hidden bg-brand-beige/50 rounded-2xl border border-brand-yellow/10">
+      <div className="relative z-10 scale-110">
         {/* Garment Visual (Simplified Shirt) */}
         <motion.svg 
           width="80" height="80" viewBox="0 0 100 100"
@@ -124,7 +124,7 @@ const BulkProductionAnimation = ({ active }) => {
   }, [active]);
 
   return (
-    <div className="relative w-full h-48 flex flex-col items-center justify-center overflow-hidden bg-brand-beige/50 rounded-2xl border border-brand-yellow/10 p-6">
+    <div className="relative w-full h-40 flex flex-col items-center justify-center overflow-hidden bg-brand-beige/50 rounded-2xl border border-brand-yellow/10 p-6">
       {/* Production Grid */}
       <div className="grid grid-cols-5 gap-2 mb-6">
         {[...Array(10)].map((_, i) => (
@@ -196,7 +196,7 @@ const FashionWorkflowsSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   return (
-    <section className="py-16 md:py-32 px-4 sm:px-6 md:px-12 bg-white/20 rounded-[2rem] md:rounded-[3.5rem] mx-2 sm:mx-4 md:mx-12 my-8 md:my-12 backdrop-blur-md border border-brand-yellow/30 shadow-sm relative overflow-hidden w-auto max-w-[100vw] box-border">
+    <section className="py-12 md:py-16 px-4 sm:px-6 md:px-12 bg-white/20 rounded-[2rem] md:rounded-[3.5rem] mx-2 sm:mx-4 md:mx-12 my-6 md:my-8 backdrop-blur-md border border-brand-yellow/30 shadow-sm relative overflow-hidden w-auto max-w-[100vw] box-border">
       
       {/* Background patterns */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-brand-yellow/5 rounded-full blur-[100px]" />
@@ -207,18 +207,18 @@ const FashionWorkflowsSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-20"
+          className="mb-10"
         >
-          <span className="text-gray-500 font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Tailored for Industry</span>
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-8 tracking-tight text-black font-serif leading-tight">
+          <span className="text-gray-500 font-bold uppercase tracking-[0.3em] text-xs mb-3 block">Tailored for Industry</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-5 tracking-tight text-black font-serif leading-tight">
             Built Specifically for Fashion Workflows
           </h2>
-          <p className="text-base sm:text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto font-light leading-relaxed">
+          <p className="text-base md:text-lg text-gray-500 max-w-3xl mx-auto font-light leading-relaxed">
             Modozo understands the lifecycle of apparel. Our structured workflow simulations accommodate everything from prototype tweaks to complex bulk manufacturing shifts.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-left">
           {/* Card 1: Design & Sampling */}
           <motion.div
             onMouseEnter={() => setHoveredCard(1)}
@@ -228,17 +228,17 @@ const FashionWorkflowsSection = () => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.02, y: -5 }}
             className={`
-              p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] bg-white border-2 transition-all duration-500 cursor-default flex flex-col h-full w-full
+              p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-white border-2 transition-all duration-500 cursor-default flex flex-col h-full w-full
               ${hoveredCard === 1 ? 'border-brand-yellow shadow-2xl' : 'border-gray-50 shadow-sm'}
             `}
           >
-            <div className="mb-10 w-full">
+            <div className="mb-6 w-full">
               <DesignSamplingAnimation active={hoveredCard === 1 || hoveredCard === null} />
             </div>
             
             <div className="mt-auto">
-              <h3 className="text-3xl font-bold mb-4 text-brand-dark tracking-tight">Design & Sampling</h3>
-              <p className="text-gray-500 font-light leading-relaxed text-lg mb-8">
+              <h3 className="text-2xl font-bold mb-3 text-brand-dark tracking-tight">Design & Sampling</h3>
+              <p className="text-gray-500 font-light leading-relaxed text-base mb-6">
                 Eliminate friction between designers and makers. Manage prototype modifications in real-time, aggregate pattern feedback, and track sample movement globally.
               </p>
               
@@ -259,17 +259,17 @@ const FashionWorkflowsSection = () => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.02, y: -5 }}
             className={`
-              p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] bg-white border-2 transition-all duration-500 cursor-default flex flex-col h-full w-full
+              p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-white border-2 transition-all duration-500 cursor-default flex flex-col h-full w-full
               ${hoveredCard === 2 ? 'border-brand-yellow shadow-2xl' : 'border-gray-50 shadow-sm'}
             `}
           >
-            <div className="mb-10 w-full">
+            <div className="mb-6 w-full">
               <BulkProductionAnimation active={hoveredCard === 2 || hoveredCard === null} />
             </div>
             
             <div className="mt-auto">
-              <h3 className="text-3xl font-bold mb-4 text-brand-dark tracking-tight">Bulk Production</h3>
-              <p className="text-gray-500 font-light leading-relaxed text-lg mb-8">
+              <h3 className="text-2xl font-bold mb-3 text-brand-dark tracking-tight">Bulk Production</h3>
+              <p className="text-gray-500 font-light leading-relaxed text-base mb-6">
                 Real-time factory floor oversight. From PO issuance to final quality checks, identify material delays before they block your line and ensure strict compliance at every batch.
               </p>
 

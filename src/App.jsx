@@ -12,7 +12,7 @@ import FinalCTA from './components/FinalCTA';
 
 function App() {
   return (
-    <div className="font-sans text-brand-dark min-h-screen bg-brand-beige">
+    <div className="font-sans text-brand-navy min-h-screen bg-brand-bg-blue">
       <div id="home"><HeroSection /></div>
       <div id="challenges"><ProblemSection /></div>
       <div id="structure"><BreakdownSection /></div>

@@ -428,7 +428,7 @@ const BreakdownSection = () => {
   const [hovered, setHovered] = useState(null);
 
   return (
-    <section className="py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-brand-beige overflow-visible">
+    <section className="py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-brand-bg-blue overflow-visible">
       <div className="max-w-5xl mx-auto text-center w-full">
 
         {/* Heading */}

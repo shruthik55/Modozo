@@ -256,7 +256,7 @@ const FeatureStrip = ({ feature, index }) => {
     >
       {/* 50% Text Section */}
       <div className={`w-1/2 flex flex-col ${isEven ? 'items-start text-left' : 'items-end text-right'}`}>
-        <h3 className="text-[14px] md:text-[16px] font-bold text-brand-dark tracking-tight leading-tight mb-1">
+        <h3 className="text-[14px] md:text-[16px] font-bold text-brand-navy tracking-tight leading-tight mb-1">
           {feature.title}
         </h3>
         <p className="text-[11px] md:text-[12px] text-gray-400 font-medium leading-tight max-w-[280px]">
@@ -283,7 +283,7 @@ const FeatureStrip = ({ feature, index }) => {
 
 const FeaturesSection = () => {
   return (
-    <section className="relative py-16 md:py-24 bg-brand-beige overflow-hidden">
+    <section className="relative py-16 md:py-24 bg-brand-bg-blue overflow-hidden">
       <div className="max-w-[1000px] mx-auto px-6">
         {/* Section Header */}
         <div className="mb-8 md:mb-12 text-center">

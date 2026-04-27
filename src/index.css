@@ -2,13 +2,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-beige: #F5EBD9;
+  --color-brand-bg-blue: #F0F4F8;
   --color-brand-yellow: #FFD700;
-  --color-brand-dark: #1A1A1A;
+  --color-brand-navy: #0A2540;
   --font-sans: 'Outfit', system-ui, sans-serif;
   --font-serif: 'Cormorant Garamond', serif;
   
-  --color-nav-bg: rgba(245, 235, 217, 0.8);
+  --color-nav-bg: rgba(240, 244, 248, 0.8);
 }
 
 @layer utilities {
@@ -30,7 +30,7 @@
 }
 @layer base {
   body {
-    @apply bg-[var(--color-brand-beige)] text-[var(--color-brand-dark)] font-sans antialiased overflow-x-hidden;
+    @apply bg-[var(--color-brand-bg-blue)] text-[var(--color-brand-navy)] font-sans antialiased overflow-x-hidden;
   }
 }
 

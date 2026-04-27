@@ -389,7 +389,7 @@ const BeforeAfterVisual = ({ started = false }) => {
   );
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto mb-16 rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 bg-brand-dark shadow-inner flex flex-col">
+    <div className="relative w-full max-w-3xl mx-auto mb-16 rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 bg-brand-navy shadow-inner flex flex-col">
       {/* Full-height Wipe Line divider - Moved to root */}
       <div 
           ref={wipeLineRef} 
@@ -462,7 +462,7 @@ const ImpactSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen flex flex-col justify-center py-20 px-4 sm:px-6 bg-brand-dark text-white rounded-t-[2rem] md:rounded-t-[3.5rem] relative overflow-hidden w-full max-w-[100vw]"
+      className="min-h-screen flex flex-col justify-center py-20 px-4 sm:px-6 bg-brand-navy text-white rounded-t-[2rem] md:rounded-t-[3.5rem] relative overflow-hidden w-full max-w-[100vw]"
     >
       {/* Background glow elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-yellow/10 rounded-full blur-[120px] pointer-events-none" />

@@ -97,7 +97,7 @@ const PlatformCard = () => (
 ───────────────────────────────────────────── */
 const SolutionSection = () => {
   return (
-    <section className="py-16 md:py-32 px-4 sm:px-6 bg-brand-dark text-white rounded-[2rem] md:rounded-[3rem] shadow-2xl relative overflow-hidden -mt-4 md:-mt-8 z-10 w-full max-w-[100vw]">
+    <section className="py-16 md:py-32 px-4 sm:px-6 bg-brand-navy text-white rounded-[2rem] md:rounded-[3rem] shadow-2xl relative overflow-hidden -mt-4 md:-mt-8 z-10 w-full max-w-[100vw]">
 
       {/* Soft radial background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[700px] h-[500px] md:h-[700px] bg-[#FFD700] rounded-full blur-[180px] opacity-[0.06] pointer-events-none" />

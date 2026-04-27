@@ -219,7 +219,7 @@ const WorkflowCard = ({ index, x, rotation, scale, isActive }) => {
         <span className="font-extrabold text-[10px] uppercase tracking-[0.2em] mb-4 block text-gray-400">
           Step {index + 1}
         </span>
-        <h3 className="text-xl md:text-2xl font-extrabold text-brand-dark leading-tight mb-3 text-center tracking-tight">
+        <h3 className="text-xl md:text-2xl font-extrabold text-brand-navy leading-tight mb-3 text-center tracking-tight">
           {content.title}
         </h3>
         <p className="text-gray-500 font-medium text-[11px] leading-relaxed text-center px-2">
@@ -277,7 +277,7 @@ const WorkflowSection = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative h-[400vh] bg-brand-beige">
+    <section ref={containerRef} className="relative h-[400vh] bg-brand-bg-blue">
       <div className="sticky top-0 h-[100svh] w-full flex flex-col items-center justify-start overflow-hidden px-4 md:px-6 pt-20 md:pt-24">
         
         {/* Header */}

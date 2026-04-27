@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const FinalCTA = () => {
   return (
-    <section id="contact" className="py-16 md:py-32 px-4 sm:px-6 bg-brand-dark text-white border-t border-white/5 overflow-hidden w-full max-w-[100vw]">
+    <section id="contact" className="py-16 md:py-32 px-4 sm:px-6 bg-brand-navy text-white border-t border-white/5 overflow-hidden w-full max-w-[100vw]">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-8 w-full px-2">
         
         {/* CENTER COLUMN: Main CTA (Order 1 on Mobile, Order 2 on Desktop) */}
@@ -36,7 +36,7 @@ const FinalCTA = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full"
           >
-            <button className="px-8 py-4 bg-brand-gradient text-brand-dark rounded-xl shadow-[0_4px_20px_rgba(255,215,0,0.3)] font-semibold text-lg hover:scale-105 hover:brightness-110 transition-all duration-300">
+            <button className="px-8 py-4 bg-brand-gradient text-brand-navy rounded-xl shadow-[0_4px_20px_rgba(255,215,0,0.3)] font-semibold text-lg hover:scale-105 hover:brightness-110 transition-all duration-300">
               Book a Demo
             </button>
             <button className="px-8 py-4 bg-transparent text-white border border-white/20 rounded-xl font-semibold text-lg hover:border-white/50 hover:bg-white/5 transition-all duration-300">

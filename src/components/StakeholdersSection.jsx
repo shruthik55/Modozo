@@ -43,7 +43,7 @@ const ServiceCard = ({ item, index, isInView, isTicked, isPulsing }) => {
                 <circle cx="8" cy="8" r="7" fill="#FFD700" />
                 <motion.path
                   d="M4.5 8.2L7 10.5L11.5 5.5"
-                  stroke="#1A1A1A"
+                  stroke="#0A2540"
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -116,8 +116,8 @@ const WiringLines = ({ isInView, activePulseCard, showFinalPulse, allTicked }) =
     >
       <defs>
         <linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="rgba(26,26,26,0.15)" />
-          <stop offset="100%" stopColor="rgba(26,26,26,0.05)" />
+          <stop offset="0%" stopColor="rgba(10,37,64,0.15)" />
+          <stop offset="100%" stopColor="rgba(10,37,64,0.05)" />
         </linearGradient>
         <linearGradient id="wireGradActive" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#FFD700" />
@@ -330,7 +330,7 @@ const StakeholdersSection = () => {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
-        <span className="sh-badge">Our Services</span>
+
         <h2 className="sh-title">One Platform. All Stakeholders.</h2>
         <p className="sh-sub">
           A single source of truth that aligns every team seamlessly across the entire supply chain.
@@ -344,27 +344,31 @@ const StakeholdersSection = () => {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.15 }}
       >
-        {/* Single row of cards */}
-        <div className="sh-row">
-          {stakeholders.map((item, i) => (
-            <ServiceCard
-              key={item.id}
-              item={item}
-              index={i}
-              isInView={isInView}
-              isTicked={tickedCards.includes(i)}
-              isPulsing={activePulseCard === i}
-            />
-          ))}
-        </div>
+        {/* Single row of cards & Wiring wrapped for mobile scroll */}
+        <div className="sh-row-wrapper hide-scrollbar">
+          <div className="sh-row-container">
+            <div className="sh-row">
+              {stakeholders.map((item, i) => (
+                <ServiceCard
+                  key={item.id}
+                  item={item}
+                  index={i}
+                  isInView={isInView}
+                  isTicked={tickedCards.includes(i)}
+                  isPulsing={activePulseCard === i}
+                />
+              ))}
+            </div>
 
-        {/* Wiring lines */}
-        <WiringLines
-          isInView={isInView}
-          activePulseCard={activePulseCard}
-          showFinalPulse={showFinalPulse}
-          allTicked={allTicked}
-        />
+            {/* Wiring lines */}
+            <WiringLines
+              isInView={isInView}
+              activePulseCard={activePulseCard}
+              showFinalPulse={showFinalPulse}
+              allTicked={allTicked}
+            />
+          </div>
+        </div>
 
         {/* Logo pill */}
         <motion.div
@@ -381,11 +385,11 @@ const StakeholdersSection = () => {
       <style>{`
         /* ═══════ SECTION ═══════ */
         .sh-section {
-          background: #F5EBD9;
+          background: #F0F4F8;
           min-height: calc(100vh - 40px);
           margin: 20px;
           border-radius: 32px;
-          border: 1px solid rgba(26,26,26,0.08);
+          border: 1px solid rgba(10,37,64,0.08);
           padding: 60px 32px;
           display: flex;
           flex-direction: column;
@@ -421,8 +425,8 @@ const StakeholdersSection = () => {
           font-weight: 600;
           letter-spacing: 2px;
           text-transform: uppercase;
-          color: #1A1A1A;
-          border: 1px solid rgba(26,26,26,0.15);
+          color: #0A2540;
+          border: 1px solid rgba(10,37,64,0.15);
           border-radius: 100px;
           padding: 6px 22px;
           margin-bottom: 22px;
@@ -432,14 +436,14 @@ const StakeholdersSection = () => {
           font-family: 'Cormorant Garamond', serif;
           font-size: clamp(2rem, 5vw, 3.5rem);
           font-weight: 700;
-          color: #1A1A1A;
+          color: #0A2540;
           margin: 0 0 14px;
           line-height: 1.12;
           letter-spacing: -0.02em;
         }
         .sh-sub {
           font-size: clamp(0.88rem, 1.4vw, 1.05rem);
-          color: rgba(26,26,26,0.6);
+          color: rgba(10,37,64,0.6);
           max-width: 520px;
           margin: 0 auto;
           line-height: 1.6;
@@ -450,7 +454,7 @@ const StakeholdersSection = () => {
           position: relative;
           width: 100%;
           max-width: 1100px;
-          border: 1px solid rgba(26,26,26,0.06);
+          border: 1px solid rgba(10,37,64,0.06);
           border-radius: 24px;
           padding: 48px 36px 36px;
           background: #FFFFFF;
@@ -462,29 +466,46 @@ const StakeholdersSection = () => {
         }
 
         /* ═══════ SINGLE ROW ═══════ */
-        .sh-row {
-          display: flex;
-          gap: 16px;
+        .sh-row-wrapper {
           width: 100%;
-          justify-content: center;
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding-bottom: 16px;
+          /* Smooth momentum scrolling on iOS */
+          -webkit-overflow-scrolling: touch;
+        }
+        
+        .sh-row-container {
+          position: relative;
+          width: 100%;
+          min-width: 800px; /* Force min-width so SVG doesn't break */
+          max-width: 960px;
+          margin: 0 auto;
+        }
+
+        .sh-row {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          width: 100%;
+          justify-items: center;
         }
 
         /* ═══════ CARD ═══════ */
         .sh-card {
           position: relative;
-          flex: 1;
+          width: 100%;
           min-width: 0;
-          aspect-ratio: 0.82;
-          max-width: 160px;
+          aspect-ratio: 0.85;
+          max-width: 100px;
           background: #FAFAFA;
-          border: 1px solid rgba(26,26,26,0.08);
-          border-radius: 14px;
-          padding: 20px 16px 16px;
+          border: 1px solid rgba(10,37,64,0.08);
+          border-radius: 12px;
+          padding: 16px 10px 12px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           cursor: pointer;
-          transition: border-color 0.35s, background 0.35s, transform 0.35s, box-shadow 0.35s;
+          transition: border-color 0.5s ease-out, background 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease-out;
           overflow: visible;
         }
         .sh-card:hover {
@@ -516,9 +537,9 @@ const StakeholdersSection = () => {
           width: 24px;
           height: 12px;
           background: #FFFFFF;
-          border-left: 1px solid rgba(26,26,26,0.08);
-          border-right: 1px solid rgba(26,26,26,0.08);
-          border-bottom: 1px solid rgba(26,26,26,0.08);
+          border-left: 1px solid rgba(10,37,64,0.08);
+          border-right: 1px solid rgba(10,37,64,0.08);
+          border-bottom: 1px solid rgba(10,37,64,0.08);
           border-radius: 0 0 6px 6px;
           transition: border-color 0.35s;
           z-index: 2;
@@ -569,13 +590,14 @@ const StakeholdersSection = () => {
 
         /* Card title */
         .sh-card-title {
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 600;
-          color: #1A1A1A;
+          color: #0A2540;
           letter-spacing: 0.01em;
-          line-height: 1.3;
+          line-height: 1.2;
           white-space: pre-line;
           margin-top: auto;
+          text-align: center;
         }
 
         /* Hover / active glow */
@@ -608,7 +630,7 @@ const StakeholdersSection = () => {
           align-items: center;
           justify-content: center;
           background: #FFFFFF;
-          border: 1px solid rgba(26,26,26,0.1);
+          border: 1px solid rgba(10,37,64,0.1);
           border-radius: 100px;
           padding: 10px 30px;
           margin-top: -2px;
@@ -620,7 +642,7 @@ const StakeholdersSection = () => {
           box-shadow: 0 0 20px rgba(255,215,0,0.3), 0 0 40px rgba(255,215,0,0.15);
         }
         .sh-pill-logo {
-          height: 30px;
+          height: 42px;
           width: auto;
           opacity: 1;
           transition: transform 0.3s;
@@ -633,28 +655,12 @@ const StakeholdersSection = () => {
         @media (max-width: 900px) {
           .sh-section { padding: 40px 20px; min-height: calc(100vh - 24px); margin: 12px; border-radius: 24px; }
           .sh-box { padding: 32px 20px 28px; border-radius: 18px; }
-          .sh-row { gap: 10px; flex-wrap: wrap; justify-content: center; }
-          .sh-card {
-            flex: 0 0 calc(33.33% - 8px);
-            max-width: none;
-            aspect-ratio: 1;
-          }
-          .sh-wiring { display: none; }
           .sh-pill { margin-top: 24px; }
         }
 
         @media (max-width: 550px) {
           .sh-section { padding: 30px 14px; min-height: calc(100vh - 16px); margin: 8px; border-radius: 20px; }
           .sh-box { padding: 24px 14px 20px; border-radius: 14px; }
-          .sh-row { gap: 8px; }
-          .sh-card {
-            flex: 0 0 calc(50% - 6px);
-            aspect-ratio: 1;
-            padding: 16px 12px 12px;
-            border-radius: 10px;
-          }
-          .sh-card-title { font-size: 12px; }
-          .sh-card-notch { width: 20px; height: 10px; right: 12px; }
           .sh-pill { padding: 8px 22px; }
           .sh-pill-logo { height: 24px; }
         }

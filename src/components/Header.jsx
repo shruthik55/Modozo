@@ -11,7 +11,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full px-6 md:px-8 py-3 md:py-4 bg-brand-beige/90 backdrop-blur-md z-50 flex items-center justify-between border-b border-black/5">
+    <header className="fixed top-0 left-0 w-full px-6 md:px-8 py-3 md:py-4 bg-brand-bg-blue/90 backdrop-blur-md z-50 flex items-center justify-between border-b border-black/5">
       {/* Left: Logo */}
       <div className="w-1/4 flex justify-start items-center h-8 cursor-pointer">
         <img 
@@ -37,14 +37,14 @@ const Header = () => {
 
       {/* Right: CTA Button */}
       <div className="hidden lg:flex w-1/4 justify-end items-center">
-        <button className="bg-brand-dark text-white px-6 py-2.5 rounded-full font-medium text-sm hover:bg-[#FFD700] hover:text-brand-dark hover:shadow-md transition-all duration-300">
+        <button className="bg-brand-navy text-white px-6 py-2.5 rounded-full font-medium text-sm hover:bg-[#FFD700] hover:text-brand-navy hover:shadow-md transition-all duration-300">
           Book a Demo
         </button>
       </div>
 
       {/* Mobile Menu Icon */}
       <div className="lg:hidden flex justify-end flex-1">
-        <button className="text-brand-dark hover:text-[#FFD700] transition-colors p-2">
+        <button className="text-brand-navy hover:text-[#FFD700] transition-colors p-2">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>

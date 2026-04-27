@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useSpring, useTransform, useMotionValue, AnimatePresence } from 'framer-motion';
 
 // Import images from assets
 import logoNew from '../assets/modozo logo new.png';
@@ -12,6 +12,23 @@ import productionImg from '../assets/production.png';
 const Navbar = () => {
   const [logoLoaded, setLogoLoaded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false); // scrolling down
+      } else {
+        setIsVisible(true); // scrolling up
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
@@ -31,7 +48,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-md shadow-sm border-b border-black/5">
+    <nav className={`fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-md shadow-sm border-b border-black/5 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="flex items-center min-w-[150px]">
         <a href="#home" className="flex items-center">
           <div className="relative flex flex-col items-start">
@@ -59,6 +76,10 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 mr-2">
+          <a href="#login" className="text-sm font-bold text-brand-navy hover:text-brand-yellow transition-colors">Login</a>
+          <a href="#signup" className="text-sm font-bold bg-brand-navy text-white px-5 py-2.5 rounded-full hover:scale-105 transition-transform shadow-sm active:scale-95">Sign Up</a>
+        </div>
         <button
           onClick={scrollToContact}
           className="hidden md:block px-6 py-2.5 bg-[#FFD700] text-black font-semibold text-sm rounded-full shadow-sm hover:scale-105 transition-all duration-300 active:scale-95 whitespace-nowrap"
@@ -113,7 +134,7 @@ const Arrow = ({ delay }) => (
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
     className="flex items-center justify-center translate-y-[-10px]"
   >
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="rgba(0,0,0,0.2)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="rgba(10,37,64,0.2)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="9 18 15 12 9 6" />
     </svg>
   </motion.div>
@@ -168,7 +189,7 @@ const WorkflowItem = ({ src, label, idx, phase, isMobile }) => {
         <img src={src} alt={label} className="w-full h-auto object-contain drop-shadow-md" />
         <motion.span 
           animate={{ opacity: labelOpacity }}
-          className="text-[10px] md:text-[11px] font-bold text-black/40 uppercase tracking-widest text-center whitespace-nowrap"
+          className="text-[10px] md:text-[11px] font-bold text-brand-navy/40 uppercase tracking-widest text-center whitespace-nowrap"
         >
           {label}
         </motion.span>
@@ -216,7 +237,7 @@ const HeroSection = () => {
   const logoY = phase === 2 ? (isMobile ? -40 : -85) : (phase === 1 ? -20 : 0);
 
   return (
-    <section id="home" className="relative min-h-[100svh] flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden bg-[#F5EBD9] pt-24 pb-12 lg:py-0">
+    <section id="home" className="relative min-h-[100svh] flex flex-col justify-center px-4 md:px-8 lg:px-16 overflow-hidden bg-brand-bg-blue pt-24 pb-12 lg:py-0">
       <Navbar />
 
       <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 z-10">
@@ -227,13 +248,13 @@ const HeroSection = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold tracking-tight text-black leading-[1.1] mb-6 font-serif">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold tracking-tight text-brand-navy leading-[1.1] mb-6 font-serif">
               Supercharge Your Fashion Supply Chain with Modozo
             </h1>
-            <p className="text-lg md:text-xl text-[#333333] leading-relaxed font-medium mb-4 max-w-xl mx-auto lg:mx-0">
+            <p className="text-lg md:text-xl text-brand-navy leading-relaxed font-medium mb-4 max-w-xl mx-auto lg:mx-0">
               From techpacks and approvals to vendors, samples, and production tracking with Modozo brings your entire fashion workflow into one connected system.
             </p>
-            <p className="text-base text-[#666666] leading-relaxed font-light max-w-lg mx-auto lg:mx-0 mb-8">
+            <p className="text-base text-brand-navy/80 leading-relaxed font-light max-w-lg mx-auto lg:mx-0 mb-8">
               Built for fashion brands that want to move faster, stay aligned, and launch collections without operational chaos.
             </p>
           </motion.div>
@@ -247,7 +268,7 @@ const HeroSection = () => {
             <button className="px-8 py-4 bg-[#FFD700] text-black rounded-full shadow-lg font-bold hover:scale-105 transition-all duration-300 active:scale-95">
               Book a Demo
             </button>
-            <button className="px-8 py-4 bg-transparent text-black border-2 border-black/10 rounded-full font-bold hover:scale-105 hover:bg-black/5 transition-all duration-300 active:scale-95">
+            <button className="px-8 py-4 bg-transparent text-brand-navy border-2 border-brand-navy/10 rounded-full font-bold hover:scale-105 hover:bg-brand-navy/5 transition-all duration-300 active:scale-95">
               See How It Works
             </button>
           </motion.div>
@@ -275,7 +296,7 @@ const HeroSection = () => {
                       height: '2px',
                       width: width - 180,
                       transform: `rotate(${angle}rad) translateX(120px)`,
-                      background: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.2) 80%, transparent 100%)',
+                      background: 'linear-gradient(to right, transparent 0%, rgba(10,37,64,0.2) 20%, rgba(10,37,64,0.2) 80%, transparent 100%)',
                     }}
                   />
                 );

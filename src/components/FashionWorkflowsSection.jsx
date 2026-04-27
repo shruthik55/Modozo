@@ -17,7 +17,7 @@ const DesignSamplingAnimation = ({ active }) => {
   }, [active]);
 
   return (
-    <div className="relative w-full h-40 flex items-center justify-center overflow-hidden bg-brand-beige/50 rounded-2xl border border-brand-yellow/10">
+    <div className="relative w-full h-40 flex items-center justify-center overflow-hidden bg-brand-bg-blue/50 rounded-2xl border border-brand-yellow/10">
       <div className="relative z-10 scale-110">
         {/* Garment Visual (Simplified Shirt) */}
         <motion.svg 
@@ -81,7 +81,7 @@ const DesignSamplingAnimation = ({ active }) => {
             <div className="w-6 h-6 bg-brand-yellow rounded flex items-center justify-center border border-black/10 shadow-sm">
               <div className="w-3 h-3 border-t-2 border-l-2 border-black/20" />
             </div>
-            <span className="text-[8px] font-bold tracking-widest text-brand-dark/40 uppercase">EXPRESS TO LAB</span>
+            <span className="text-[8px] font-bold tracking-widest text-brand-navy/40 uppercase">EXPRESS TO LAB</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -124,7 +124,7 @@ const BulkProductionAnimation = ({ active }) => {
   }, [active]);
 
   return (
-    <div className="relative w-full h-40 flex flex-col items-center justify-center overflow-hidden bg-brand-beige/50 rounded-2xl border border-brand-yellow/10 p-6">
+    <div className="relative w-full h-40 flex flex-col items-center justify-center overflow-hidden bg-brand-bg-blue/50 rounded-2xl border border-brand-yellow/10 p-6">
       {/* Production Grid */}
       <div className="grid grid-cols-5 gap-2 mb-6">
         {[...Array(10)].map((_, i) => (
@@ -237,7 +237,7 @@ const FashionWorkflowsSection = () => {
             </div>
             
             <div className="mt-auto">
-              <h3 className="text-2xl font-bold mb-3 text-brand-dark tracking-tight">Design & Sampling</h3>
+              <h3 className="text-2xl font-bold mb-3 text-brand-navy tracking-tight">Design & Sampling</h3>
               <p className="text-gray-500 font-light leading-relaxed text-base mb-6">
                 Eliminate friction between designers and makers. Manage prototype modifications in real-time, aggregate pattern feedback, and track sample movement globally.
               </p>
@@ -268,7 +268,7 @@ const FashionWorkflowsSection = () => {
             </div>
             
             <div className="mt-auto">
-              <h3 className="text-2xl font-bold mb-3 text-brand-dark tracking-tight">Bulk Production</h3>
+              <h3 className="text-2xl font-bold mb-3 text-brand-navy tracking-tight">Bulk Production</h3>
               <p className="text-gray-500 font-light leading-relaxed text-base mb-6">
                 Real-time factory floor oversight. From PO issuance to final quality checks, identify material delays before they block your line and ensure strict compliance at every batch.
               </p>
